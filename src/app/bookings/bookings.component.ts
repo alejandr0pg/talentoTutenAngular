@@ -33,12 +33,10 @@ export class BookingsComponent implements OnInit {
     });
 
     return this.http.get(
-      `${environment.apiUrl}/user/${email}/booking?current=true`, { headers: headers })
-      .pipe(map(booking => {
-        console.log('booking', booking);
-        
-        return booking;
-      }));
+      `${environment.apiUrl}/user/${email}/bookings?current=true`, { headers: headers }
+    ).subscribe(res => {
+      console.log('booking', res);
+    });
   }
 
 }
