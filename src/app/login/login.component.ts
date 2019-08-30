@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../providers/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -14,7 +15,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -37,6 +39,9 @@ export class LoginComponent implements OnInit {
     const credentials = this.loginForm.value;
     this.auth.login(credentials.email, credentials.password).subscribe(data => {
       console.log('data auth', data);
+      if(data) {
+        this.router.navigate(['/booking']);
+      }
     });
   }
 
