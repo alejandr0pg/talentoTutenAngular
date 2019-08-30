@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../providers/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -9,13 +10,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted = false;
+  hide = true;
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private auth: AuthService
+  ) { }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required, Validators.minLength(6)]],
+      email: ['testapis@tuten.com', [Validators.required, Validators.email]],
+      password: ['1234', [Validators.required, Validators.minLength(4)]],
     });
   }
 
@@ -29,7 +34,10 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
+    const credentials = this.loginForm.value;
+    this.auth.login(credentials.email, credentials.password).subscribe(data => {
+      console.log('data auth', data);
+    });
   }
 
 }

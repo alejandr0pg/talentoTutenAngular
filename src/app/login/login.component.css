@@ -1,3 +1,12 @@
 .example-icon {
   padding: 0 14px;
 }
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.login-container > * {
+  width: 100%;
+}

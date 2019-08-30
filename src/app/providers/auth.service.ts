@@ -18,19 +18,25 @@ export class AuthService {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
+  
+  public get currentUserValue(): User {
+    return this.currentUserSubject.value;
+  }
 
   login(username: string, password: string) {
-    return this.http.post<any>(`${environment.apiUrl}/users/authenticate`, { username, password })
-      .pipe(map(user => {
-        console.log('user', user);
-        localStorage.setItem('currentUser', JSON.stringify(user));
-        this.currentUserSubject.next(user);
-        return user;
-      }));
+    return this.http.put<any>(`${environment.apiUrl}/users/${username}`, { 
+      app: 'APP_BCK',
+      email: username, 
+      password: password 
+    }).pipe(map(user => {
+      console.log('user', user);
+      localStorage.setItem('currentUser', JSON.stringify(user));
+      this.currentUserSubject.next(user);
+      return user;
+    }));
   }
 
   logout() {
-      // remove user from local storage to log user out
       localStorage.removeItem('currentUser');
       this.currentUserSubject.next(null);
   }
