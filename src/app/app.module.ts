@@ -7,8 +7,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { BookingsComponent } from './bookings/bookings.component';
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 const appRoutes: Routes = [
   { path: '',
@@ -36,7 +37,8 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     MaterialModule,
-    HttpClientModule
+    HttpClientModule,
+    FilterPipeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

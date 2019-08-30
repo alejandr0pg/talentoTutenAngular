@@ -1,0 +1,16 @@
+.booking-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.booking-container > * {
+    width: 100%;
+}
+
+table {
+    width: 100%;    
+}
+
+th.mat-sort-header-sorted {
+    color: black;
+}
