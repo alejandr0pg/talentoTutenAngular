@@ -8,6 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { BookingsComponent } from './bookings/bookings.component';
 
 const appRoutes: Routes = [
   { path: '',
@@ -22,7 +23,8 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     LoginComponent,
-    PageNotFoundComponent
+    PageNotFoundComponent,
+    BookingsComponent
   ],
   imports: [
     BrowserModule,
