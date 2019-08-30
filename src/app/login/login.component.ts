@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         return;
     }
 
-    
+    alert('SUCCESS!! :-)\n\n' + JSON.stringify(this.loginForm.value, null, 4));
   }
 
 }
