@@ -1,0 +1,28 @@
+<header>
+    <mat-toolbar color="primary">
+        <span>Talento Tuten</span>
+    </mat-toolbar>
+</header>
+
+<section style="margin-top: 2em">
+  <form [formGroup]="loginForm" (ngSubmit)="login()">
+    <mat-card style="width: 300px;margin: auto auto">
+      <mat-card-content class="login-container">
+        <h3>Tuten Login</h3>
+        <mat-form-field appearance="outline">
+          <mat-label>Correo electronico</mat-label>
+          <input formControlName="email" type="email" matInput placeholder="Escribe el correo electronico" required>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Contraseña</mat-label>
+          <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="Estribe la contraseña" required>
+          <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar password'" [attr.aria-pressed]="hide">
+            <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          </button>
+        </mat-form-field>
+        <!--boton de login-->
+        <button type="submit" mat-button>Identificar</button>
+      </mat-card-content>
+    </mat-card>
+  </form>
+</section>
