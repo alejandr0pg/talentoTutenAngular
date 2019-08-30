@@ -16,6 +16,7 @@ const appRoutes: Routes = [
     pathMatch: 'full'
   },
   { path: 'login', component: LoginComponent },
+  { path: 'booking', component: BookingsComponent },
   { path: '**', component: PageNotFoundComponent }
 ];
 
