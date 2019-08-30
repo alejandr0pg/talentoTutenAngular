@@ -11,11 +11,11 @@
         <h3>Tuten Login</h3>
         <mat-form-field appearance="outline">
           <mat-label>Correo electronico</mat-label>
-          <input formControlName="email" type="email" matInput placeholder="testapis@tuten.com" required>
+          <input formControlName="email" type="email" matInput placeholder="Escribe el correo electronico" required>
         </mat-form-field>
         <mat-form-field appearance="outline">
           <mat-label>Contraseña</mat-label>
-          <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="1234" required>
+          <input formControlName="password" [type]="hide ? 'password' : 'text'" matInput placeholder="Estribe la contraseña" required>
           <button type="button" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Ocultar password'" [attr.aria-pressed]="hide">
             <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
           </button>

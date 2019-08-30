@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { User } from '../models/user';
@@ -24,16 +24,20 @@ export class AuthService {
   }
 
   login(username: string, password: string) {
-    return this.http.put<any>(`${environment.apiUrl}/users/${username}`, { 
-      app: 'APP_BCK',
-      email: username, 
-      password: password 
-    }).pipe(map(user => {
-      console.log('user', user);
-      localStorage.setItem('currentUser', JSON.stringify(user));
-      this.currentUserSubject.next(user);
-      return user;
-    }));
+    const headers = new HttpHeaders({
+      'Content-Type':'application/json; charset=utf-8',
+      'app': 'APP_BCK',
+      'email': username,
+      'password': password
+    });
+    
+    return this.http.put<any>(`${environment.apiUrl}/user/${username}`, {}, { headers: headers })
+      .pipe(map(user => {
+        console.log('user', user);
+        localStorage.setItem('currentUser', JSON.stringify(user));
+        this.currentUserSubject.next(user);
+        return user;
+      }));
   }
 
   logout() {
