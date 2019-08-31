@@ -9,15 +9,16 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MaterialModule } from './material/material.module';
 import { HttpClientModule } from '@angular/common/http';
 import { BookingsComponent } from './bookings/bookings.component';
-import { FilterPipeModule } from 'ngx-filter-pipe';
+import { GuestGuard } from './guards/guest/guest.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '',
     redirectTo: '/login',
     pathMatch: 'full'
   },
-  { path: 'login', component: LoginComponent },
-  { path: 'booking', component: BookingsComponent },
+  { path: 'login', component: LoginComponent, canActivate: [GuestGuard] },
+  { path: 'booking', component: BookingsComponent, canActivate: [AuthGuard] },
   { path: '**', component: PageNotFoundComponent }
 ];
 
@@ -37,8 +38,7 @@ const appRoutes: Routes = [
       { enableTracing: true } // <-- debugging purposes only
     ),
     MaterialModule,
-    HttpClientModule,
-    FilterPipeModule
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

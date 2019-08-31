@@ -5,6 +5,7 @@ import { environment } from '../../environments/environment';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
+import { User } from '../models/user';
 @Component({
   selector: 'app-bookings',
   templateUrl: './bookings.component.html',
@@ -12,7 +13,7 @@ import { map } from 'rxjs/operators';
 })
 export class BookingsComponent implements OnInit {
   token: string;
-  user;
+  user: User;
   dataSource;
   displayedColumns: string[];
 
@@ -41,24 +42,25 @@ export class BookingsComponent implements OnInit {
     
     return this.http.get(
       `${environment.apiUrl}/user/${email}/bookings?current=true`, { headers: headers }
-      ).pipe(map((user: any) => {
-
-        user.map((array) => {
-          array['nameClient'] = array['tutenUserClient']['firstName'] + ' ' + array['tutenUserClient']['lastName']
+      ).pipe(map((booking: any) => {
+        return booking.map((array) => {
+          const cliente = array['tutenUserClient'];
+          array['nameClient'] = cliente['firstName'] + ' ' + cliente['lastName'];
           return array;
-        })
-    
-        return user;
+        });
       })).subscribe(async (res: any) => {
         console.log('booking', res);
         this.dataSource = await new MatTableDataSource(res);
-
         this.dataSource.sort = this.sort;
     });
   }
 
   applyFilter(filterValue: string) {
     this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+  
+  logout() {
+    this.auth.logout();
   }
 
 }

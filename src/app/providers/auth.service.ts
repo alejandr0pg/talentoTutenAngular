@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { User } from '../models/user';
 
 import { environment } from '../../environments/environment';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,10 @@ export class AuthService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private router: Router
+  ) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -31,7 +35,7 @@ export class AuthService {
       'password': password
     });
     
-    return this.http.put<any>(`${environment.apiUrl}/user/${username}`, {}, { headers: headers })
+    return this.http.put<User>(`${environment.apiUrl}/user/${username}`, {}, { headers: headers })
       .pipe(map(user => {
         console.log('user', user);
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -43,5 +47,6 @@ export class AuthService {
   logout() {
       localStorage.removeItem('currentUser');
       this.currentUserSubject.next(null);
+      this.router.navigate(['/login']);
   }
 }
